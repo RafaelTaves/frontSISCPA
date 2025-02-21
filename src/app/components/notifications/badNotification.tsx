@@ -42,7 +42,7 @@ export default function BadNotification({ show, title, desc, onClose }: Notifica
                   </div>
                   <div className="ml-3 w-0 flex-1 pt-0.5">
                     <p className="text-md font-Jost text-gray-900">{title}</p>
-                    <p className="mt-1 font-Poppins text-sm text-black">
+                    <p className="mt-1 font-poppins text-sm text-black">
                       {desc}
                     </p>
                   </div>

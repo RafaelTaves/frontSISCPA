@@ -45,7 +45,7 @@ export default function Login() {
   
         if (response.status == 200) {
           localStorage.setItem('token', response.data.access_token);
-          router.push("/home")
+          router.push("/consultas")
         } else {
           setError('Authentication failed!');
           setShowNotification(true);

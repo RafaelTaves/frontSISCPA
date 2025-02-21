@@ -19,8 +19,6 @@ import axios from "axios";
 import { MdOutlineFastfood } from "react-icons/md";
 import { useRouter } from 'next/navigation';
 
-const BASE_URL = "http://127.0.0.1:8000"
-
 export default function SideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
@@ -66,129 +64,61 @@ export default function SideBar() {
         </div>
         <ul className="space-y-2 p-4 flex-1">
           <li>
-            <Link href="/home" passHref>
+            <Link href="/consultas" passHref>
               <div
                 className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/home") ? "bg-light-blue-I" : ""
+                  isActiveLink("/consultas") ? "bg-light-blue-I" : ""
                 }`}
               >
-                <HomeIcon className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Dashboard</span>
+                <HomeIcon className="h-6 w-6 text-white" />
+                <span className="block font-Jost text-lg">Consultas</span>
               </div>
             </Link>
           </li>
           <li>
-            <p className="text-sm text-mid-gray-I font-Poppins">RESTAURANTE</p>
-          </li>
-          <li>
-            <Link href="/informacoes" passHref>
+            <Link href="/clientes" passHref>
               <div
                 className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/informacoes") ? "bg-light-blue-I" : ""
+                  isActiveLink("/clientes") ? "bg-light-blue-I" : ""
                 }`}
               >
-                <IoIosInformationCircleOutline className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Informações</span>
+                <FiUser className="h-6 w-6 text-white" />
+                <span className="block font-Jost text-lg">Clientes</span>
               </div>
             </Link>
           </li>
           <li>
-            <Link href="/usuarios" passHref>
+            <Link href="/planos" passHref>
               <div
                 className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/usuarios") ? "bg-light-blue-I" : ""
+                  isActiveLink("/planos") ? "bg-light-blue-I" : ""
                 }`}
               >
-                <FiUser className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Usuários</span>
+                <WalletIcon className="h-6 w-6 text-white" />
+                <span className="block font-Jost text-lg">Planos</span>
               </div>
             </Link>
           </li>
           <li>
-            <Link href="/formaspagamento" passHref>
+            <Link href="/barbeiros" passHref>
               <div
                 className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/formaspagamento") ? "bg-light-blue-I" : ""
+                  isActiveLink("/barbeiros") ? "bg-light-blue-I" : ""
                 }`}
               >
-                <BanknotesIcon className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">
-                  Formas de Pagamento
+                <BanknotesIcon className="h-6 w-6 text-white" />
+                <span className="block font-Jost text-lg">
+                  Barbeiros
                 </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/cardapiodigital" passHref>
-              <div
-                className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/cardapiodigital") ? "bg-light-blue-I" : ""
-                }`}
-              >
-                <QrCodeIcon className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">
-                  Cardápio Digital
-                </span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <p className="text-sm text-mid-gray-I font-Poppins">SERVIÇOS</p>
-          </li>
-          <li>
-            <Link href="/categorias" passHref>
-              <div
-                className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/categorias") ? "bg-light-blue-I" : ""
-                }`}
-              >
-                <BiFoodMenu className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Grupos</span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/produtos" passHref>
-              <div
-                className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/produtos") ? "bg-light-blue-I" : ""
-                }`}
-              >
-                <MdOutlineFastfood className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Produtos</span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/tags" passHref>
-              <div
-                className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/tags") ? "bg-light-blue-I" : ""
-                }`}
-              >
-                <TagIcon className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Tags</span>
-              </div>
-            </Link>
-          </li>
-          <li>
-            <Link href="/opcionais" passHref>
-              <div
-                className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
-                  isActiveLink("/opcionais") ? "bg-light-blue-I" : ""
-                }`}
-              >
-                <WalletIcon className="h-5 w-5 text-white" />
-                <span className="block font-Jost text-base">Opcionais</span>
               </div>
             </Link>
           </li>
         </ul>
         <div className="mb-4 ps-4">
-          <Link href="/login" onClick={handleLogout}>
+          <Link href="/" onClick={handleLogout}>
             <div className="flex gap-x-2 border-transparent rounded-md py-3 hover:bg-light-blue-I">
-              <CiLogout className="h-5 w-5 text-white" />
-              <h2 className=" text-lg font-bold font-Poppins">Logout</h2>
+              <CiLogout className="h-6 w-6 text-white" />
+              <h2 className=" text-lg font-bold font-poppins">Sair</h2>
             </div>
           </Link>
         </div>

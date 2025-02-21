@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // Ajuste os pesos conforme necessário
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"], // Ajuste os pesos conforme necessário
+});
 
 export const metadata: Metadata = {
   title: "Laytime Calculator",
@@ -14,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="f-hull bg-white">
-      <body className="h-full bg-white">{children}</body>
+      <body className={`h-full bg-white ${poppins.className} ${inter.className}`}>{children}</body>
     </html>
   );
 }

@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { Poppins, Inter } from "next/font/google";
 
 export default {
   content: [
@@ -34,8 +35,8 @@ export default {
         "dark-green-I": "#0e4726",
       },
       fontFamily: {
-        Jost: ["Jost", "sans-serif"],
-        Poppins: ["Poppins", "sans-serif"],
+        poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
