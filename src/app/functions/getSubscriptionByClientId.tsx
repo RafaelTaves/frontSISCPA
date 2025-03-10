@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL = "http://127.0.0.1:8000"
 
-export default async function getSubscriptionByClientId (client_id: string) {
+export default async function getSubscriptionByClientId (client_id: number) {
     const token = localStorage.getItem('token');
 
     try{
@@ -13,7 +13,7 @@ export default async function getSubscriptionByClientId (client_id: string) {
         })
 
         if (response.status === 200) {
-            return response.data[0].end_date
+            return response.data[0]
         } 
     } catch {
         return "erro"

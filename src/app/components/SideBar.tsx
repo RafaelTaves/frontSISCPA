@@ -87,7 +87,7 @@ export default function SideBar() {
               </div>
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/planos" passHref>
               <div
                 className={`flex gap-x-2 p-1 border-transparent rounded-md hover:bg-light-blue-I ${
@@ -98,7 +98,7 @@ export default function SideBar() {
                 <span className="block font-Jost text-lg">Planos</span>
               </div>
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link href="/barbeiros" passHref>
               <div

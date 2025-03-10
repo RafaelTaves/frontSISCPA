@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins, Inter } from "next/font/google";
 import "./globals.css";
+import { ClientsProvider } from "@/context/ClientsContext";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -24,7 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="f-hull bg-white">
-      <body className={`h-full bg-white ${poppins.className} ${inter.className}`}>{children}</body>
+      <body className={`h-full bg-white ${poppins.className} ${inter.className}`}>
+        <ClientsProvider>
+          {children}
+        </ClientsProvider>
+      </body>
     </html>
   );
 }

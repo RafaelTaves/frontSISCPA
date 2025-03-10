@@ -3,6 +3,8 @@ import React, { useState } from "react"
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import BadNotification from "./components/notifications/badNotification";
+import getClients from "./functions/getClients";
+import { useClients } from "@/context/ClientsContext";
 
 const BASE_URL = "http://127.0.0.1:8000"
 
@@ -13,6 +15,7 @@ export default function Login() {
     const [hideCheck, setHideCheck] = useState<boolean>(true);
     const [error, setError] = useState('');
     const [showNotification, setShowNotification] = useState(false);
+    const { setClientes } = useClients();
 
     const router = useRouter();
 
@@ -45,6 +48,8 @@ export default function Login() {
   
         if (response.status == 200) {
           localStorage.setItem('token', response.data.access_token);
+          const clientsResponse = await getClients()
+          setClientes(clientsResponse)
           router.push("/consultas")
         } else {
           setError('Authentication failed!');

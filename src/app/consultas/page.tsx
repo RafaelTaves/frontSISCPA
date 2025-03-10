@@ -5,11 +5,11 @@ import SideBar from "../components/SideBar";
 import { useRouter } from "next/navigation";
 import { FiSearch } from "react-icons/fi";
 import TableConsultas from "../components/tables/TableConsultas";
-import getClientByName from "../functions/getClientByName";
 import getSubscriptionByClientId from "../functions/getSubscriptionByClientId";
 import setSubscriptionStatus from "../functions/setSubcriptionStatus";
 import BadNotification from "../components/notifications/badNotification";
-import getClientByCpf from "../functions/getClientByCpf";
+import ClientesSelect from "../components/selects/ClientsSelect";
+import { useClients } from "@/context/ClientsContext";
 
 interface Cliente {
   cpf: string;
@@ -23,13 +23,15 @@ const BASE_URL = "http://127.0.0.1:8000"
 export default function Consultas() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [selectedSearchMethod, setSelectedSearchMethod] = useState<string>("nome")
-  const [searchInput, setSearchInput] = useState<string>("")
   const [searchedClient, setSearchedClient] = useState<Cliente>()
   const [searchedEndDate, setSearchedEndDate] = useState<Date>()
   const [active, setActive] = useState<boolean>(false)
   const [showBadNotificationClient, setShowBadNotificationClient] = useState<boolean>(false)
-  const [idSelectedClient, setIdSelectedClient] = useState<number>(0)
+  const { clientes } = useClients();
+
+  useEffect(() => {
+    getClientInfo()
+  }, [searchedClient])
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -55,39 +57,25 @@ export default function Consultas() {
   }
 
   async function getClientInfo() {
-    let client
-    if (selectedSearchMethod === "nome") {
-      client = await getClientByName(searchInput);
-    } else {
-      client = await getClientByCpf(searchInput)
-    }
+    if (searchedClient) {
+      const subscription = await getSubscriptionByClientId(searchedClient.id_client);
 
-    if (client === "erro") {
-      setShowBadNotificationClient(true)
-      setSearchedEndDate(undefined)
-      setSearchedClient(undefined)
-      return
-    }
+      if (subscription) {
+        const endDate = new Date(subscription.end_date);
+        setSearchedEndDate(endDate);
 
-    setSearchedClient(client);
-
-    const end_date = await getSubscriptionByClientId(client.id_client);
-
-    if (end_date) {
-      const endDate = new Date(end_date);
-      setSearchedEndDate(endDate);
-
-      const status = setSubscriptionStatus(endDate);
-      setActive(status);
-    }
+        const status = setSubscriptionStatus(endDate);
+        setActive(status);
+      }
+    } else return
 
   }
 
   function handleSelectChange(selectedClient: Cliente | null) {
-    if(selectedClient){
-        setIdSelectedClient(selectedClient.id_client)
+    if (selectedClient) {
+      setSearchedClient(selectedClient);
     }
-}
+  }
 
   function handleCloseNotification() {
     setShowBadNotificationClient(false)
@@ -109,33 +97,14 @@ export default function Consultas() {
           <div className="w-3/4">
             <div className="flex gap-x-4">
               <label htmlFor="search" className="block font-inter text-lg font-semibold flex text-black items-center">
-                {selectedSearchMethod == "nome" ? "Digite o NOME COMPLETO do cliente" : "Digite o CPF do cliente"}
+                Digite o NOME COMPLETO do cliente
               </label>
-              <select
-                value={selectedSearchMethod}
-                onChange={(e) => setSelectedSearchMethod(e.target.value)}
-                className="text-black font-poppins rounded-lg py-1"
-              >
-                <option className="text-black font-poppins text-sm" value="nome">Nome</option>
-                <option className="text-black font-poppins text-sm" value="cpf">Cpf</option>
-              </select>
             </div>
             <div className="mt-6">
               <div className="flex gap-x-4">
-                <input
-                  id="search"
-                  name="search"
-                  type="text"
-                  placeholder="Nome completo ou CPF"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  className="block rounded-md font-poppins min-w-0 grow px-3 py-1.5 text-base text-black placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                />
-                <button
-                  onClick={getClientInfo}
-                  className="w-24 bg-light-green-I flex items-center justify-center rounded-md hover:bg-green-700">
-                  <FiSearch className="h-6 w-6" />
-                </button>
+                {clientes !== null ?
+                <ClientesSelect clientes={clientes} onChange={handleSelectChange} />
+                : ""}
               </div>
             </div>
             <div className="mt-6">
