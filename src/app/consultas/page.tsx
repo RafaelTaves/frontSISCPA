@@ -18,15 +18,6 @@ interface Cliente {
   id_client: number;
 }
 
-interface Subscription {
-  start_date: Date;
-  duration: number;
-  payment_method: string;
-  end_date: Date;
-  id_client: number;
-  id_subscription: number;
-}
-
 const BASE_URL = "http://127.0.0.1:8000"
 
 export default function Consultas() {
@@ -38,6 +29,7 @@ export default function Consultas() {
   const [searchedEndDate, setSearchedEndDate] = useState<Date>()
   const [active, setActive] = useState<boolean>(false)
   const [showBadNotificationClient, setShowBadNotificationClient] = useState<boolean>(false)
+  const [idSelectedClient, setIdSelectedClient] = useState<number>(0)
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -90,6 +82,12 @@ export default function Consultas() {
     }
 
   }
+
+  function handleSelectChange(selectedClient: Cliente | null) {
+    if(selectedClient){
+        setIdSelectedClient(selectedClient.id_client)
+    }
+}
 
   function handleCloseNotification() {
     setShowBadNotificationClient(false)

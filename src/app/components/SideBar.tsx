@@ -44,7 +44,7 @@ export default function SideBar() {
     <div className="flex">
       <div className="md:hidden w-full flex justify-between px-2 pt-2 pb-1 bg-mid-blue-I">
         <button onClick={toggleMenu} className="focus:outline-none z-50">
-          {!isOpen ? <Bars3Icon className="h-5 w-5 text-black " /> : null}
+          {!isOpen ? <Bars3Icon className="h-5 w-5 text-white " /> : null}
         </button>
         <img src={`./images/logoReduzido.png`} className="h-14" />
       </div>
